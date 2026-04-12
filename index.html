@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 id="title">My Todo List</h1>
+    <input id="taskInput" type="text" placeholder="Type a task here...">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="list"></ul>
+
+    <script>
+        function addTask() {
+            let input = document.getElementById('taskInput')
+            let list = document.getElementById('list')
+            let item = document.createElement('li')
+            item.textContent = input.value
+            item.onclick = function() {
+                item.style.textDecoration= 'line-through'
+            }
+            
+            let deleteBtn = document.createElement('button')
+            deleteBtn.textContent = 'Delete'
+            deleteBtn.onclick = function() {
+                list.removeChild(item)
+            }
+            
+            item.appendChild(deleteBtn)
+            list.appendChild(item)
+            input.value = ''
+        }
+    </script>
+</body>
+</html>
