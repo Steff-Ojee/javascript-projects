@@ -17,10 +17,17 @@
                     return response.json()
                 })
                 .then(function(data) {
+                  if (data.cod === '404') {
+                    document.getElementById('result').textContent = 'City not found! Try again'
+                  } else {
                     let result = document.getElementById('result')
                     let weather = data.weather[0].description
                     let wind = data.wind.speed
                     result.textContent = `${data.name}: ${data.main.temp}°C, ${weather}, wind: ${wind} m/s`
+                  }
+                })
+                .catch(function() {
+                    document.getElementById('result').textContent = 'Something went wrong!'
                 })
             }
         </script>
