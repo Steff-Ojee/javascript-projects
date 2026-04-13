@@ -7,6 +7,14 @@
         <p id="result"></p>
 
         <script>
+            function getEmoji(weather) {
+                if (weather.includes('rain')) return '🌧️'
+                if (weather.includes('cloud')) return '☁️'
+                if (weather.includes('clear')) return '☀️'
+                if (weather.includes('snow')) return '❄️'
+                if (weather.includes('thunder')) return '⛈️'
+                return '🌥️'
+            }
             function getWeather() {
                 let city = document.getElementById('cityInput').value
                 let apiKey = 'e17693f196906a55669e18887084a85c'
@@ -23,7 +31,8 @@
                     let result = document.getElementById('result')
                     let weather = data.weather[0].description
                     let wind = data.wind.speed
-                    result.textContent = `${data.name}: ${data.main.temp}°C, ${weather}, wind: ${wind} m/s`
+                    let emoji = getEmoji(weather)
+                    result.textContent = `${emoji} ${data.name}: ${data.main.temp}°C, ${weather}, wind: ${wind} m/s`
                   }
                 })
                 .catch(function() {
