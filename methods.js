@@ -58,3 +58,16 @@ console.log(foundb)
 
 let foundc = people.find(person => person.city === 'Tehran')
 console.log(foundc)
+
+people.forEach(person => {
+    console.log(`${person.name} lives in ${person.city} and is ${person.age}`)
+
+})
+
+async function getJoke() {
+    let response = await fetch('https://official-joke-api.appspot.com/random_joke')
+    let data = await response.json()
+    console.log(data)
+    console.log(`${data.setup}...${data.punchline}`)   
+}
+getJoke()
