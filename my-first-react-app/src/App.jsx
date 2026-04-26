@@ -1,14 +1,34 @@
 import { useState} from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([])
+  const [input, setInput] = useState('')
 
+  function addTask() {
+    if (input === '') return
+    setTasks([...tasks, input])
+    setInput('')
+  }
+   function removeTask(index) {
+    setTasks(tasks.filter((_, i) => i !== index))
+  }
   return (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={() => setCount(count + 1)}>Add 1</button>
-      <button onClick={() => setCount(count - 1)}>Subtract 1</button>
-      <button onClick={() => setCount(0)}>Reset</button>
+      <h1>My Todo List</h1>
+      <input
+        value={input}
+        onChange={e => setInput(e.target.value)}
+        placeholder="Type a task..."
+      />
+      <button onClick={addTask}>Add Task</button>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            {task}
+            <button onClick={() => removeTask(index)}>Remove</button>
+            </li>
+        ))}
+      </ul>
     </div>
   )
 }
