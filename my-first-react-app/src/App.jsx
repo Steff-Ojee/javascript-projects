@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState } from 'react'
 
 function App() {
   const [tasks, setTasks] = useState([])
@@ -6,10 +6,10 @@ function App() {
 
   function addTask() {
     if (input === '') return
-    setTasks([...tasks, input])
+    setTasks([...tasks, { text: input, done: false }])
     setInput('')
   }
-   function removeTask(index) {
+  function removeTask(index) {
     setTasks(tasks.filter((_, i) => i !== index))
   }
   return (
@@ -23,10 +23,18 @@ function App() {
       <button onClick={addTask}>Add Task</button>
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>
-            {task}
-            <button onClick={() => removeTask(index)}>Remove</button>
-            </li>
+          <li
+            key={index}
+            onClick={() => {
+              const updated = [...tasks]
+              updated[index].done = !updated[index].done
+              setTasks(updated)
+            }}
+            style={{ textDecoration: task.done ? 'line-through' : 'none', cursor: 'pointer' }}
+          >
+            {task.text}
+            <button onClick={(e) => { e.stopPropagation(); removeTask(index) }}>Remove</button>
+          </li>
         ))}
       </ul>
     </div>
